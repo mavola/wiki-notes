@@ -1,0 +1,44 @@
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+}
+
+.split-pane {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+}
+
+.text-area, .code-area {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #cccccc;
+    -fx-padding: 10px;
+    -fx-font-family: "Monospace";
+    -fx-font-size: 14px;
+}
+
+.menu-bar {
+    -fx-background-color: #818181;
+}
+
+.menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+.menu-item:hover, .menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.highlight {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
+}
