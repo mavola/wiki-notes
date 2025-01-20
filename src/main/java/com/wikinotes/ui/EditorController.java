@@ -2,12 +2,15 @@ package com.wikinotes.ui;
 
 import com.wikinotes.services.FileService;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
-public class EditorController extends BorderPane {
+public class EditorController extends StackPane {
 
     private final CodeArea codeArea;
     private final FileService fileService;
@@ -15,7 +18,15 @@ public class EditorController extends BorderPane {
     public EditorController(FileService fileService) {
         this.fileService = fileService;
         this.codeArea = new CodeArea();
-        this.setCenter(new VirtualizedScrollPane<>(codeArea));
+
+        codeArea.setParagraphGraphicFactory(line -> {
+            Node lineNumber = LineNumberFactory.get(codeArea).apply(line);
+            StackPane lineNumberPane = new StackPane(lineNumber);
+            lineNumberPane.setPadding(new Insets(0, 10, 0, 0)); // --> margin-right: 10px
+            return lineNumberPane;
+        });
+
+        getChildren().add(new VirtualizedScrollPane<>(codeArea));
 
         // Detecta clics en enlaces internos
         codeArea.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
