@@ -16,6 +16,10 @@ public class PreviewController extends BorderPane {
         this.setCenter(webView);
     }
 
+    /**
+     * Actualiza la previsualización con el contenido Markdown
+     * @param markdown Contenido del editor en formato Markdown
+     * */
     public void updatePreview(String markdown) {
         String htmlContent = markdownProcessor.render(markdown);
         webView.getEngine().loadContent(htmlContent);

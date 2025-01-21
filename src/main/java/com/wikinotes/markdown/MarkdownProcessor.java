@@ -14,6 +14,10 @@ public class MarkdownProcessor {
         this.renderer = HtmlRenderer.builder(options).build();
     }
 
+    /**
+     * Convierte un texto en formato Markdown a HTML
+     * @param markdown Texto en formato Markdown
+     * */
     public String render(String markdown) {
         return renderer.render(parser.parse(markdown));
     }

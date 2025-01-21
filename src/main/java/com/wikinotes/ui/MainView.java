@@ -53,6 +53,10 @@ public class MainView extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Crea la barra de menu
+     * @param editorController Controlador del editor
+     * */
     private MenuBar createMenuBar(EditorController editorController) {
         MenuBar menuBar = new MenuBar();
 
@@ -78,6 +82,10 @@ public class MainView extends Application {
         return menuBar;
     }
 
+    /**
+     * Abre un archivo de notas
+     * @param editorController Controlador del editor
+     * */
     private void openFile(EditorController editorController) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Markdown Files", "*.md"));
@@ -88,6 +96,10 @@ public class MainView extends Application {
         }
     }
 
+    /**
+     * Guarda el contenido del editor en un archivo .md
+     * @param editorController Controlador del editor
+     * */
     private void saveFile(EditorController editorController) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Markdown Files", "*.md"));

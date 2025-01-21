@@ -40,18 +40,25 @@ public class EditorController extends StackPane {
         });
     }
 
+    // Propiedades de la clase CodeArea
     public ObservableValue<String> textProperty() {
         return codeArea.textProperty();
     }
 
+    // Obtener el contenido del editor
     public String getMarkdownContent() {
         return codeArea.getText();
     }
 
+    // Establecer el contenido del editor
     public void setMarkdownContent(String content) {
         codeArea.replaceText(content);
     }
 
+    /**
+     * Detecta enlaces en el texto del editor
+     * @param position Posicion del cursor
+     * */
     private String findWikiLinkAtPosition(int position) {
         String text = codeArea.getText();
         // Implementar la deteccion de enlaces en formato [texto](wiki:nombre)
@@ -67,6 +74,10 @@ public class EditorController extends StackPane {
         return null;
     }
 
+    /**
+     * Abre el enlace a una nota de la wiki
+     * @param noteName Nombre de la nota
+     * */
     private void openWikiLink(String noteName) {
         String fileName = noteName + ".md";
         String content = fileService.readNote(fileService.getBasePath().resolve(fileName));
