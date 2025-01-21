@@ -1,5 +1,6 @@
 package com.wikinotes.ui;
 
+import com.wikinotes.markdown.LinkResolver;
 import com.wikinotes.services.FileService;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -14,9 +15,11 @@ public class EditorController extends StackPane {
 
     private final CodeArea codeArea;
     private final FileService fileService;
+    private final LinkResolver linkResolver;
 
     public EditorController(FileService fileService) {
         this.fileService = fileService;
+        this.linkResolver = new LinkResolver(fileService);
         this.codeArea = new CodeArea();
 
         codeArea.setParagraphGraphicFactory(line -> {
@@ -32,7 +35,7 @@ public class EditorController extends StackPane {
         codeArea.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (event.getClickCount() == 2) { // Doble clic
                 int position = codeArea.getCaretPosition();
-                String link = findWikiLinkAtPosition(position);
+                String link = linkResolver.findWikiLinkAtPosition(codeArea.getText(), position);
                 if (link != null) {
                     openWikiLink(link);
                 }
@@ -53,25 +56,6 @@ public class EditorController extends StackPane {
     // Establecer el contenido del editor
     public void setMarkdownContent(String content) {
         codeArea.replaceText(content);
-    }
-
-    /**
-     * Detecta enlaces en el texto del editor
-     * @param position Posicion del cursor
-     * */
-    private String findWikiLinkAtPosition(int position) {
-        String text = codeArea.getText();
-        // Implementar la deteccion de enlaces en formato [texto](wiki:nombre)
-        // Aca asumimos que los enlaces tienen el formato Markdown estandar
-        int start = text.lastIndexOf("[", position);
-        int end = text.indexOf(")", position);
-        if (start >= 0 && end > start) {
-            String possibleLink = text.substring(start, end + 1);
-            if (possibleLink.contains("(wiki:")) {
-                return possibleLink.substring(possibleLink.indexOf("(wiki:") + 6, possibleLink.length() - 1);
-            }
-        }
-        return null;
     }
 
     /**
